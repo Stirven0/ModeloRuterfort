@@ -1,4 +1,4 @@
-package View;
+package Util;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,12 +10,15 @@ import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.paint.Color;
 
-public abstract class  ControlPanelAbstract extends AnchorPane {
-
+public abstract class ControlAbstract extends AnchorPane{
+    
     private Label titleLabel = new Label("Title");
 
-    public ControlPanelAbstract(String title, Color titleColor, Color borderColor, Color backgroundColor) {
+    private SimulacionAbstract sp;
+    public boolean play = false;
+    public boolean reboot = false;
 
+    public ControlAbstract(String title, Color titleColor, Color borderColor, Color backgroundColor) {
         
         setBackground(Background.fill(backgroundColor));
         this.titleLabel.setText(title);
@@ -36,5 +39,10 @@ public abstract class  ControlPanelAbstract extends AnchorPane {
         getChildren().add(titleLabel);
     }
 
+    public void setContext(SimulacionAbstract sp){
+        this.sp = sp;
+        setup();
+    }
 
+    public abstract void setup();
 }

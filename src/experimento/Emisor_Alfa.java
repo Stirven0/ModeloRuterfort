@@ -37,13 +37,13 @@ public class Emisor_Alfa {
     public int getAlto(){
         return this.alto;
     }
-    public int getTop(){
+    public int getAncho(){
+        return this.ancho;
+    }
+    public int getY(){
         return this.y;
     }
-    public int getButton(){
-        return this.y + this.alto;
-    }
-    public int getBorderRight(){
-        return this.x + this.ancho;
+    public int getX(){
+        return this.x;
     }
 }

@@ -2,8 +2,8 @@ package View;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import experimento.Control_Simulacion;
-import experimento.SimulationPane;
+import experimento.Control;
+import experimento.Simulation;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
@@ -44,8 +44,8 @@ public class MainController implements Initializable{
             Color.LIGHTSTEELBLUE,
             Color.BLUE
         );
-        Control_Simulacion controlPanel = new Control_Simulacion("Panel de Control", Color.BLACK, null, Color.LIGHTSKYBLUE);
-        SimulationPane simulationPane = new SimulationPane(controlPanel);
+        Control controlPanel = new Control("Panel de Control", Color.BLACK, null, Color.LIGHTSKYBLUE);
+        Simulation simulationPane = new Simulation(controlPanel);
         
         
         
