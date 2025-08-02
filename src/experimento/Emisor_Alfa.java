@@ -1,5 +1,9 @@
 package experimento;
 
+import java.util.Random;
+
+import Util.SimulacionAbstract;
+import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -11,11 +15,18 @@ public class Emisor_Alfa {
     private int ancho;
     private int alto;
 
-    public Emisor_Alfa(int x, int y, int ancho, int alto){
+    private Simulation simulation;
+
+    public Emisor_Alfa(int x, int y, int ancho, int alto, SimulacionAbstract context){
         this.x = x;
         this.y = y;
         this.alto = alto;
         this.ancho = ancho;
+        this.simulation = (Simulation) context;
+    }
+
+    public P_Alfa emiter(){
+        return new P_Alfa(getAreaEmiter(), simulation);
     }
 
     public void draw(GraphicsContext gc){
@@ -24,26 +35,18 @@ public class Emisor_Alfa {
         gc.setFill(Color.BLACK);
         gc.fillText("Fuente", x + (ancho/2), y-3);
 
-        // gc.rect(x, y, ancho, alto);
         gc.setFill(Color.YELLOW);
         gc.fillRect(x, y, ancho, alto);
         gc.setStroke(Color.BLACK);
         gc.setLineWidth(2);
         gc.strokeRect(x, y, ancho, alto);
-        // gc.fill();
-        // gc.stroke();
     }
 
-    public int getAlto(){
-        return this.alto;
+    public Point2D getAreaEmiter(){
+        Random random = new Random();
+        int xPoint = random.nextInt(x, x + ancho);
+        int yPoint = random.nextInt(y, y + alto);
+        return new Point2D(xPoint, yPoint);
     }
-    public int getAncho(){
-        return this.ancho;
-    }
-    public int getY(){
-        return this.y;
-    }
-    public int getX(){
-        return this.x;
-    }
+
 }

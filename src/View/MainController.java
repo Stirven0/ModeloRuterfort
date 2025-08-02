@@ -46,6 +46,7 @@ public class MainController implements Initializable{
         );
         Control controlPanel = new Control("Panel de Control", Color.BLACK, null, Color.LIGHTSKYBLUE);
         Simulation simulationPane = new Simulation(controlPanel);
+        // controlPanel.setContext(simulationPane);
         
         
         

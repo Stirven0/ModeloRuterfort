@@ -14,7 +14,7 @@ public abstract class ControlAbstract extends AnchorPane{
     
     private Label titleLabel = new Label("Title");
 
-    private SimulacionAbstract sp;
+    // public SimulacionAbstract sp;
     public boolean play = false;
     public boolean reboot = false;
 
@@ -37,12 +37,10 @@ public abstract class ControlAbstract extends AnchorPane{
             )));
         
         getChildren().add(titleLabel);
-    }
-
-    public void setContext(SimulacionAbstract sp){
-        this.sp = sp;
         setup();
     }
+
+    public abstract void setContext(SimulacionAbstract sp);
 
     public abstract void setup();
 }
