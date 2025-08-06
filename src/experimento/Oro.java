@@ -1,13 +1,16 @@
 package experimento;
 
+import Util.SimulacionAbstract;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class Oro {
+
+    SimulacionAbstract simulacion;
+
     private int x;
     private int y;
     private int ancho;
@@ -16,7 +19,8 @@ public class Oro {
     private Point2D nucleo;
     private double diametro;
 
-    public Oro(int x, int y, int ancho, int alto){
+    public Oro(int x, int y, int ancho, int alto, SimulacionAbstract context){
+        simulacion = context;
         this.x = x;
         this.y = y;
         this.alto = alto;
@@ -49,8 +53,33 @@ public class Oro {
 
     }
 
+    public void onInteractueWithParticle(P_Alfa particula){
+        double distance = nucleo.distance(particula.posiscion);
+        double maxInfluence = getRadioNucleo() + particula.radio;
+
+        if (distance < maxInfluence && !particula.desviate) {
+            Simulation simu = (Simulation) simulacion;
+           simu.particulasDesviadas++;
+
+           Point2D normal = particula.posiscion.subtract(nucleo).normalize();
+
+           
+            double f = 1.0 - (distance / maxInfluence); // más cerca → mayor f
+            // f = Math.max(0, Math.min(f, 1)); // clamp
+            f = Math.pow(f, 0.25);
+            
+            particula.direccion = particula.direccion.multiply(1-f).add(normal.multiply(f)).normalize();
+            particula.desviate = true;
+        }
+
+    }
+
     public Point2D getNucleo() {
         return nucleo;
+    }
+
+    public double getRadioNucleo(){
+        return this.diametro/2;
     }
     
 

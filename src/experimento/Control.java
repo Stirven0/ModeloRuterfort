@@ -67,7 +67,7 @@ public class Control extends ControlAbstract {
 
 
         Label intencidadLabel = new Label("Intecidad");
-        intencidaSlider = new Slider(0.0, 100.0, defaultValue);
+        intencidaSlider = new Slider(0.0, 100.0, 1);
         intencidaSlider.setMajorTickUnit(20);
         intencidaSlider.setMinorTickCount(10);
         intencidaSlider.setShowTickLabels(true);
@@ -94,14 +94,18 @@ public class Control extends ControlAbstract {
             playButton.setDisable(true);
             pauseButton.setDisable(false);
             // simulacion.atimer.start();
-            simulacion.timer.start();
+            simulacion.emisorA.lastTime = System.nanoTime();
+            for (P_Alfa particu : simulacion.p_Alfas) {
+                particu.lastTime = System.nanoTime();
+            }
+            simulacion.atimer.start();
         });
         pauseButton.setOnAction(e -> {
             play = false;
             reboot = false;
             playButton.setDisable(false);
             pauseButton.setDisable(true);
-            simulacion.timer.stop();
+            simulacion.atimer.stop();
             // simulacion.atimer.stop();
             
         });
@@ -109,9 +113,11 @@ public class Control extends ControlAbstract {
             play = false;
             reboot = true;
             playButton.setDisable(false);
-            pauseButton.setDisable(false);
-            simulacion.timer.stop();
-            // simulacion.atimer.stop();
+            pauseButton.setDisable(true);
+            simulacion.atimer.stop();
+            simulacion.particulasDesviadas = 0;
+            simulacion.particulasLansadas = 0;
+            simulacion.particulasRebotadas = 0;
             simulacion.detectores.clear();
             simulacion.p_Alfas.clear();
             simulacion.setupDetectores();
