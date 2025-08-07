@@ -1,4 +1,4 @@
-package experimento;
+package Experimento1;
 
 import Util.SimulacionAbstract;
 import javafx.beans.property.DoubleProperty;

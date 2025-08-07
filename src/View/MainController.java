@@ -2,10 +2,12 @@ package View;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import experimento.Control;
-import experimento.Simulation;
+import Experimento1.Control;
+import Experimento1.Simulation;
+import Modelo_Atomico.Atomo;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
@@ -23,13 +25,17 @@ public class MainController implements Initializable{
     @FXML
     private BorderPane modeloTap;
 
+    @FXML
+    private TabPane tapManager;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         // Initialize the main controller
-        campoInitialize();
         experimentoInitialize();
-        fallosInitialize();
         modeloInitialize();
+        campoInitialize();
+        fallosInitialize();
+        tapManager.getSelectionModel().select(1);
     }
 
     public void campoInitialize() {
@@ -44,8 +50,8 @@ public class MainController implements Initializable{
             Color.LIGHTSTEELBLUE,
             Color.BLUE
         );
-        Control controlPanel = new Control("Panel de Control", Color.BLACK, null, Color.LIGHTSKYBLUE);
-        Simulation simulationPane = new Simulation(controlPanel);
+        Experimento1.Control controlPanel = new Control("Panel de Control", Color.BLACK, null, Color.LIGHTSKYBLUE);
+        Experimento1.Simulation simulationPane = new Simulation(controlPanel);
         // controlPanel.setContext(simulationPane);
         
         
@@ -58,7 +64,27 @@ public class MainController implements Initializable{
         // Initialize fallosTap
     }
     public void modeloInitialize() {
-        // Initialize modeloTap
+        
+        String description = """
+                Basado en su experimento, Rutherford propuso que:
+                •   El atomo tiene un nucleo central y denzo con carga positiva.
+                •   Los atomos orbitan al rededor del nucleo como planetas al rededor del Sol.
+                •   La mayor parte del atomo es espacio vacio.
+                •   El nucleo concentra casi toda la masa del atomo.""";
+        InformationPane infoPanel = new InformationPane(
+            "Modelo Atomico de Rutherford (1911)", 
+            description, 
+            Color.BLUE, 
+            Color.BLACK, 
+            Color.LIGHTBLUE, 
+            Color.BLUE);
+            
+        Modelo_Atomico.Control control = new Modelo_Atomico.Control("Panel de Control", Color.BLACK, Color.BLACK, Color.LIGHTSKYBLUE);
+        Modelo_Atomico.Atomo simulacion = new Atomo(control);
+
+        modeloTap.setCenter(simulacion);
+        modeloTap.setTop(infoPanel);
+        modeloTap.setBottom(control);
     }
 
 }
