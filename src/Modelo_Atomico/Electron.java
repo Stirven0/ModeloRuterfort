@@ -1,16 +1,24 @@
 package Modelo_Atomico;
 
+import Util.ParticleAbstract;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Electron extends Circle {
+public class Electron extends ParticleAbstract {
 
     DoubleProperty angulo;
-    Atomo atomo;
-
     Circle orbita;
+    Nucleo_Atomico nucleo;
+
+    public Nucleo_Atomico getNucleo() {
+        return nucleo;
+    }
+
+    public void setNucleo(Nucleo_Atomico nucleo) {
+        this.nucleo = nucleo;
+    }
 
     public Circle getOrbita() {
         return orbita;
@@ -35,25 +43,29 @@ public class Electron extends Circle {
 
     private void update(DoubleProperty e) {
 
-        double anguloRadianes = Math.toRadians(e.get());
-        // double anguloRadianes = Math.toRadians(180);
-        double x = atomo.nucleo.getCenterX() + orbita.getRadius() * Math.cos(anguloRadianes);
-        double y = atomo.nucleo.getCenterY() + orbita.getRadius() * Math.sin(anguloRadianes);
-
-        setCenterX(x);
-        setCenterY(y);
+        if (nucleo != null) {
+            double anguloRadianes = Math.toRadians(e.get());
+            double x = nucleo.getCenterX() + orbita.getRadius() * Math.cos(anguloRadianes);
+            double y = nucleo.getCenterY() + orbita.getRadius() * Math.sin(anguloRadianes);
+    
+            setLayoutX(x);
+            setLayoutY(y);
+            
+        }else{System.out.println("No existe un nucleo");}
     }
 
-    public Electron(Atomo atomo) {
+    public Electron() {
         angulo = new SimpleDoubleProperty();
-        this.atomo = atomo;
-        this.orbita = new Circle(100);
+        orbita = new Circle(100);
+
+        getParticle().setFill(Color.BLUE);
+        getParticle().setRadius(7);
+        setSimbol("-");
+        setLabel("Electron");
+
         angulo.addListener((e) -> {
             update(((DoubleProperty) e));
         });
-        setRadius(7);
-        setFill(Color.BLUE);
-        setStroke(Color.BLACK);
 
     }
 }
