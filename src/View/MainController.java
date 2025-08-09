@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 import Experimento1.Control;
 import Experimento1.Simulation;
 import Modelo_Atomico.Atomo;
+import Modelo_Atomico.Simulacion;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
@@ -80,7 +81,7 @@ public class MainController implements Initializable{
             Color.BLUE);
             
         Modelo_Atomico.Control control = new Modelo_Atomico.Control("Panel de Control", Color.BLACK, Color.BLACK, Color.LIGHTSKYBLUE);
-        Modelo_Atomico.Atomo simulacion = new Atomo(control);
+        Modelo_Atomico.Simulacion simulacion = new Simulacion(control);
 
         modeloTap.setCenter(simulacion);
         modeloTap.setTop(infoPanel);

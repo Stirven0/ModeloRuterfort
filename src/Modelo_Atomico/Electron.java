@@ -8,7 +8,17 @@ import javafx.scene.shape.Circle;
 public class Electron extends Circle {
 
     DoubleProperty angulo;
-    Nucleo_Atomico nucleo;
+    Atomo atomo;
+
+    Circle orbita;
+
+    public Circle getOrbita() {
+        return orbita;
+    }
+
+    public void setOrbita(Circle orbita) {
+        this.orbita = orbita;
+    }
 
     public DoubleProperty anguloProperty() {
         return angulo;
@@ -26,20 +36,22 @@ public class Electron extends Circle {
     private void update(DoubleProperty e) {
 
         double anguloRadianes = Math.toRadians(e.get());
-        double x = nucleo.getCenterX() + nucleo.orbitRadio * Math.cos(anguloRadianes);
-        double y = nucleo.getCenterY() + nucleo.orbitRadio * Math.sin(anguloRadianes);
+        // double anguloRadianes = Math.toRadians(180);
+        double x = atomo.nucleo.getCenterX() + orbita.getRadius() * Math.cos(anguloRadianes);
+        double y = atomo.nucleo.getCenterY() + orbita.getRadius() * Math.sin(anguloRadianes);
 
         setCenterX(x);
         setCenterY(y);
     }
 
-    public Electron(Nucleo_Atomico nucleo) {
+    public Electron(Atomo atomo) {
         angulo = new SimpleDoubleProperty();
-        this.nucleo = nucleo;
+        this.atomo = atomo;
+        this.orbita = new Circle(100);
         angulo.addListener((e) -> {
             update(((DoubleProperty) e));
         });
-        setRadius(50);
+        setRadius(7);
         setFill(Color.BLUE);
         setStroke(Color.BLACK);
 
